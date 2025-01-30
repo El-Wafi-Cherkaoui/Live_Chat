@@ -1,3 +1,4 @@
+
 #root{
     height: 100vh;
     display: flex;
@@ -7,11 +8,15 @@
 body{
     background-color: #52345eee;
 }
-.bg-custom-bg1 {
+.bg1 {
     background-color: #441752;
 }
-.bg-custom-bg2 {
+.bg2 {
     background-color: #A888B5;
 }
 
+@theme {
+    --color-primary: #441752;
+    --color-secondary: #A888B5;
+}
 @import "tailwindcss"
