@@ -1,0 +1,17 @@
+#root{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body{
+    background-color: #52345eee;
+}
+.bg-custom-bg1 {
+    background-color: #441752;
+}
+.bg-custom-bg2 {
+    background-color: #A888B5;
+}
+
+@import "tailwindcss"
