@@ -39,7 +39,7 @@ export default function ChatBox({socket, userInfo} : ChatBox_props){
     return(
         <div className="flex flex-col bg1 w-[50vw] h-[80vh] rounded-xl overflow-hidden">
         <ChatHeader userInfo = {userInfo}/>
-        <ChatBody chat={chat_messages}/>
+        <ChatBody userInfo = {userInfo} chat={chat_messages}/>
         <ChatFooter userInfo = {userInfo} send_message = {set_new_message}/>
         </div>
     )

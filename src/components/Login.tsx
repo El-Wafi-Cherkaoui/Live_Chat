@@ -26,9 +26,8 @@ export default function Login({set_info}: Login_props) {
 
         <div className="flex flex-col bg-amber-50 gap-2">
             <input type="text" placeholder="Your name" className="border-2 p-1 rounded border-primary" ref={usernameRef}/>
-            <input type="text" className="border-2 p-1 rounded border-primary" value={generate_id()} ref={roomIDRef}/>
+            <input type="text" className="border-2 p-1 rounded border-primary" defaultValue={generate_id()} ref={roomIDRef}/>
             <button onClick={connect} className={style_class}>Join Room</button>
-            {/* <button className={style_class}>Create Room</button> */}
         </div>
     </div>
   )
