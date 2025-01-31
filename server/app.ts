@@ -13,18 +13,29 @@ const io = new Server(http_server, {
         origin : process.env.FRONTEND_SERVER
     }
 })
-const rooms = [
+type Message_Type = {
+    sender: string
+    text: string
+    date: string
+    roomID: string
+}
+type Rooms_type = {
+    roomID : string
+    messages : Message_Type[]
+}
+const rooms : Rooms_type[] = [
+    
 ]
 
 io.on("connection", (cnn)=>{
-    console.log("someone connected to server", cnn.client.id)
+    console.log("someone connected to server")
     
     cnn.on("user_info", (user_info)=>{
         console.log("user connected: ", user_info);
         cnn.join(user_info.roomID)
     })
 
-    cnn.on("send_msg", (msg)=>{
+    cnn.on("send_msg", (msg : Message_Type)=>{
         const room = rooms.find((room)=>room.roomID == msg.roomID)
         if(room){
             room.messages.push(msg)
@@ -44,6 +55,3 @@ io.on("connection", (cnn)=>{
 
 
 })
-setInterval(()=>{
-    console.log("rooms: ", rooms);
-}, 1000)
