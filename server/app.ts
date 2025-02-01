@@ -5,6 +5,7 @@ import cors from 'cors'
 
 import path from "path"
 import { fileURLToPath } from "url";
+import { createServer } from "http"
 
 dotenv.config()
 
@@ -30,7 +31,8 @@ app.use((_req, res, next) => {
 app.get("/", (_req, res) => {    
     res.send("websocket server is on");
 });
-const http_server = app.listen(PORT, ()=>{
+const http_server = createServer(app)
+http_server.listen(PORT, ()=>{
     console.log("server is running on: ", PORT)
 })
 const io = new Server(http_server, {
