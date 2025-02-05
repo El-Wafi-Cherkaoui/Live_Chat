@@ -6,6 +6,8 @@ type ChatHeader_props = {
     userInfo : UserType
 }
 export default function ChatHeader({userInfo} : ChatHeader_props){
+    console.log(userInfo);
+    
     return(
         <div className="bg1 h-[20%] flex items-center p-5 gap-6">
             <img src={img} alt="ads" className="w-[50px] h-[50px] rounded-xl p-1" />
@@ -15,7 +17,7 @@ export default function ChatHeader({userInfo} : ChatHeader_props){
             <div className="flex gap-2 bg-amber-50 p-5 rounded-2xl text-primary">
                     <span className="font-bold">Room ID : </span>
                     <p className="">
-                    {userInfo.roomID}
+                    {/* {userInfo.roomID} */}
                 </p>
             </div>
         </div>

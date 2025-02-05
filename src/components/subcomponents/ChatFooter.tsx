@@ -15,7 +15,7 @@ export default function ChatFooter({send_message, userInfo} : ChatFooter_props){
                 sender: userInfo.username,
                 text: msg_inp.current.value,
                 date: new Date().toISOString(),
-                roomID: userInfo.roomID
+                roomID: ""
             })
         }
     }

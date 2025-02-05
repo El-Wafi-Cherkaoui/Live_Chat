@@ -1,6 +1,6 @@
 import io from "socket.io-client"
 import './styles/App.css';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 

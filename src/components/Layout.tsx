@@ -16,7 +16,7 @@ export default function Layout() {
   const navigate = useNavigate()
   const user = useSelector((state: State_type)=>state.user)
   const [connecting, setConnecting] = useState(true)
-  const {socket, set_socket} = useSocket ()
+  const {socket} = useSocket ()
   
   useEffect(()=>{
     if(connecting) return

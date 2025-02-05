@@ -6,7 +6,6 @@ import cors from 'cors'
 import path from "path"
 import { fileURLToPath } from "url";
 import { createServer } from "http"
-import { Room_type } from "../src/pages/NewRoom"
 
 dotenv.config()
 
@@ -48,17 +47,21 @@ const io = new Server(http_server, {
     pingInterval: 60000, 
     pingTimeout: 50000, 
 });
-type Message_Type = {
-    sender: string
-    text: string
-    date: string
-    roomID: string
-}
+// type Message_Type = {
+//     sender: string
+//     text: string
+//     date: string
+//     roomID: string
+// }
 type Rooms_type = {
     id: string,
     room_name: string,
     room_admin: string, 
     room_members: string[]
+}
+type Join_req_type = {
+    room_id: string,
+    username: string,
 }
 const rooms : Rooms_type[] = [
     
@@ -94,6 +97,22 @@ io.on("connection", (cnn)=>{
         
         io.to(room_id).emit("room_created", my_rooms)        
     })
+    cnn.on("join_room", (join_req: Join_req_type)=>{
+        try {
+            console.log("join request: ", join_req);
+            const room = rooms.find((room)=>room.id == join_req.room_id)
+            if(!room) throw new Error("room not found");
+            if(room.room_members.includes(join_req.username)) throw new Error("Already in the room");
+            
+            room?.room_members.push(join_req.username)
+            cnn.join(join_req.room_id)
+            const my_rooms = rooms.filter((room)=>room.room_members.some(member=>member == join_req.username))
+            io.to(join_req.room_id).emit("room_created", my_rooms)        
+        } catch (error) {
+            console.log(error);
+        }
+
+    })
     // cnn.on("send_msg", (msg : Message_Type)=>{
     //     const room = rooms.find((room)=>room.id == msg.roomID)
     //     if(room){
@@ -114,6 +133,12 @@ io.on("connection", (cnn)=>{
 
 
 })
+setInterval(() => {
+    console.log("===========");
+    console.log(rooms);
+    console.log("===========");
+    
+}, 20500);
 app.get('*', (_req, res) => { 
     res.sendFile(path.join(__dirname, '../dist', 'index.html'))
 });

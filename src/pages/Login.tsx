@@ -9,7 +9,7 @@ const style_class = "bg-primary text-amber-50 p-1 rounded-l cursor-pointer hover
 
 
 export default function Login() {
-    const {socket, set_socket} = useSocket()
+    const {set_socket} = useSocket()
     const usernameRef = useRef<HTMLInputElement | null>(null)
     const dispatch = useDispatch()
     const navigate = useNavigate()
