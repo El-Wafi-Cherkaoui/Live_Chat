@@ -1,52 +1,36 @@
-import ChatBox from './components/ChatBox';
 import io from "socket.io-client"
 import './styles/App.css';
-import { useEffect, useState } from 'react';
-import Login from './components/Login';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 
 
 export type SocketType = ReturnType<typeof io>;
 export type UserType = {
   username : string
-  roomID : string
 }
+type Socket_context_type = {
+  socket : SocketType | null
+  set_socket : React.Dispatch<React.SetStateAction<SocketType | null>>
+}
+export const Socket_context = createContext <Socket_context_type | null> (null)
 function App() {
-  const [socket, set_socket] = useState <SocketType | null> (null)
-  const [userInfo, set_userInfo] = useState<UserType | null>(null)
-  console.log("socket:", socket);
-  
-  useEffect(()=>{
-    try {
-      if(!userInfo){
-        return
-      }
-      const socket_inst: SocketType = io(import.meta.env.VITE_BACKEND_SERVER, {
-        transports: ["websocket"],
-      });
-      console.log("socket_inst:", socket_inst);
-      
-      socket_inst.on("connect", ()=>{
-        console.log('connected');
-        socket_inst.emit("user_info", userInfo)
-      })
-      set_socket(socket_inst)
-      
-      return ()=>{
-        socket_inst.disconnect()
-      }
-    } catch (error) {
-      console.log(error)      
-    }
-  }, [userInfo])
+  const [socket, set_socket] = useState<SocketType | null>(null)
+
+
   return (
     <>
-    {
-      userInfo 
-      ? <ChatBox userInfo = {userInfo} socket={socket} />
-      : <Login set_info = {set_userInfo} /> 
-    }
+    <Socket_context.Provider value = {{socket, set_socket}}>
+      <Outlet/>
+    </Socket_context.Provider>
     </>
   );
 }
 
 export default App;
+
+export function useSocket(){
+  const context = useContext(Socket_context)
+  if(!context) throw new Error("socket is null");
+  
+  return context
+}

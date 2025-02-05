@@ -1,5 +1,5 @@
 import { UserType } from "../../App"
-import { ChatMessage } from "../ChatBox"
+import { ChatMessage } from "../CreateChatBox"
 
 type ChatBody_props = {
     chat: ChatMessage[]

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ChatBody from "./subcomponents/ChatBody";
-import ChatFooter from "./subcomponents/ChatFooter";
-import ChatHeader from "./subcomponents/ChatHeader";
+import ChatBody from "./subcomponents/ChatBody.tsx";
+import ChatFooter from "./subcomponents/ChatFooter.tsx";
+import ChatHeader from "./subcomponents/ChatHeader.tsx";
 import {SocketType, UserType} from "../App.tsx"
 
 export type ChatMessage = {
@@ -14,7 +14,7 @@ export type ChatBox_props = {
     socket : SocketType| null
     userInfo : UserType
 }
-export default function ChatBox({socket, userInfo} : ChatBox_props){
+export default function CreateChatBox({socket, userInfo} : ChatBox_props){
     const [chat_messages , set_chat_messages] = useState<ChatMessage[]>([])
     const [new_message, set_new_message] = useState<ChatMessage | null>(null)
     useEffect(()=>{

@@ -69,9 +69,19 @@ io.on("connection", (cnn)=>{
 
     cnn.on("user_info", (user_info)=>{
         console.log("user connected: ", user_info);
-        cnn.join(user_info.roomID)
+        // cnn.join(user_info.roomID)
     })
 
+    cnn.on("create_room", (new_room)=>{
+        rooms.push(new_room)
+        const room_id = new_room.id
+        cnn.join(room_id)
+        console.log("====================");
+        console.log(cnn.id, 'room created', room_id);
+        console.log(cnn.id , 'joined to ', cnn.rooms);
+        console.log("====================");
+        io.to(room_id).emit("room_created", new_room)        
+    })
     cnn.on("send_msg", (msg : Message_Type)=>{
         const room = rooms.find((room)=>room.roomID == msg.roomID)
         if(room){

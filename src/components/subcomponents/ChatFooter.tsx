@@ -1,5 +1,5 @@
 import { FormEvent, useRef } from "react";
-import { ChatMessage } from "../ChatBox";
+import { ChatMessage } from "../CreateChatBox";
 import { UserType } from "../../App";
 type ChatFooter_props = {
     send_message: (new_message : ChatMessage ) => void, 
