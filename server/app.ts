@@ -6,6 +6,7 @@ import cors from 'cors'
 import path from "path"
 import { fileURLToPath } from "url";
 import { createServer } from "http"
+import { Room_type } from "../src/pages/NewRoom"
 
 dotenv.config()
 
@@ -54,8 +55,10 @@ type Message_Type = {
     roomID: string
 }
 type Rooms_type = {
-    roomID : string
-    messages : Message_Type[]
+    id: string,
+    room_name: string,
+    room_admin: string, 
+    room_members: string[]
 }
 const rooms : Rooms_type[] = [
     
@@ -73,6 +76,10 @@ io.on("connection", (cnn)=>{
     })
 
     cnn.on("create_room", (new_room)=>{
+        const room_already_exist = rooms.find((room)=>room.id == new_room.id)
+        const current_user = new_room.room_admin
+
+        if(room_already_exist) return
         rooms.push(new_room)
         const room_id = new_room.id
         cnn.join(room_id)
@@ -80,25 +87,30 @@ io.on("connection", (cnn)=>{
         console.log(cnn.id, 'room created', room_id);
         console.log(cnn.id , 'joined to ', cnn.rooms);
         console.log("====================");
-        io.to(room_id).emit("room_created", new_room)        
+        
+        const my_rooms = rooms.filter((room)=>room.room_members.some(member=>member == current_user))
+        console.log(new_room);
+        console.log(my_rooms);
+        
+        io.to(room_id).emit("room_created", my_rooms)        
     })
-    cnn.on("send_msg", (msg : Message_Type)=>{
-        const room = rooms.find((room)=>room.roomID == msg.roomID)
-        if(room){
-            room.messages.push(msg)
-            io.to(msg.roomID).emit("send_data", room.messages)
-        } else{
-            const new_room = {
-                roomID : msg.roomID,
-                messages : [
-                    msg
-                ]
-            }
-            rooms.push(new_room)            
-            io.to(msg.roomID).emit("send_data", new_room.messages)
+    // cnn.on("send_msg", (msg : Message_Type)=>{
+    //     const room = rooms.find((room)=>room.id == msg.roomID)
+    //     if(room){
+    //         room.messages.push(msg)
+    //         io.to(msg.roomID).emit("send_data", room.messages)
+    //     } else{
+    //         const new_room = {
+    //             roomID : msg.roomID,
+    //             messages : [
+    //                 msg
+    //             ]
+    //         }
+    //         rooms.push(new_room)            
+    //         io.to(msg.roomID).emit("send_data", new_room.messages)
 
-        }        
-    })
+    //     }        
+    // })
 
 
 })

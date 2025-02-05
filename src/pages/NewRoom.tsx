@@ -2,12 +2,13 @@ import React from 'react'
 import MiniLayout from '../components/MiniLayout'
 import { useSelector } from 'react-redux'
 import { State_type } from '../components/Layout'
-import { useSocket } from '../App'
+import { SocketType, useSocket } from '../App'
 
 export type Room_type = {
     id: string,
     room_name: string,
-    room_admin: string
+    room_admin: string, 
+    room_members: string[]
 }
 const inp_class = "p-2 border border-red-800 rounded-sm"
 const btn_class = "ml-auto bg-red-800 w-fit  px-5 py-2 rounded-2xl text-amber-50 hover:bg-amber-50 hover:text-red-800 transition cursor-pointer"
@@ -17,7 +18,6 @@ export default function NewRoom() {
 
     function create_room(e: React.FormEvent<HTMLFormElement>) {
         if(!user_info || !socket) return
-        console.error("new", socket.id);
         
         e.preventDefault()
         const form = e.target as HTMLFormElement
@@ -26,8 +26,11 @@ export default function NewRoom() {
         const new_room : Room_type = {
             id: room_id.value,
             room_name: room_name.value,
-            room_admin: user_info?.username
+            room_admin: user_info.username,
+            room_members: [user_info.username]
         }
+        console.log(user_info);
+        
         try {
             socket.emit("create_room", new_room)
         } catch (error) {

@@ -17,7 +17,7 @@ export default function Login() {
         if(usernameRef.current?.value != "" && usernameRef.current != null){
             const username = usernameRef.current.value
             if(!set_socket) return
-            dispatch(login(username))
+            dispatch(login({username}))
             set_socket(create_socket(username))
             navigate("dashboard")
         }

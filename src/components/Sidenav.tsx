@@ -15,8 +15,8 @@ export default function SideNav() {
   useEffect(()=>{
     
     if(!socket) return
-    socket.on("room_created", (new_room : Room_type)=>{
-      setRooms((prev)=>[...prev, new_room])
+    socket.on("room_created", (new_room : Room_type[])=>{
+      setRooms(new_room)
     })
 
     return ()=>{
@@ -26,11 +26,25 @@ export default function SideNav() {
 
   console.log("rooms: ", rooms);
   console.log(socket?.id);
+  console.log(rooms);
   
   return (
     <nav className={navclass}>
       <Link to={"new_room"} className={newroom_link_class}>Create Room</Link>
-
+      {!rooms.length 
+      ? "no rooms" 
+      :<ul className="flex flex-col py-5 bg-amber-500 w-full rounded-2xl gap-2">
+        {
+          rooms.map((room)=>{
+            return(
+              <Link to={""} className="bg-red-300 p-1" key={room.id}>
+                {room.room_name} ({room?.room_members.length})
+              </Link>
+            )
+          })
+        }
+      </ul>
+      }
     </nav>
   )
 }
