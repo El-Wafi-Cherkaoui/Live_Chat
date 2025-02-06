@@ -37,7 +37,7 @@ export default function NewRoom() {
   return (
     <div>
         <MiniLayout title='Create Room'>
-            <form onSubmit={create_room} className='flex flex-col gap-2'>
+            <form onSubmit={create_room} className='flex flex-col md:gap-2 gap-5'>
                 <input name="room_name" type="text" placeholder='room name' className={inp_class}/>
                 <input name="room_id" type="text" placeholder='room id' className={inp_class}/>
                 <button className={btn_class}>Create</button>

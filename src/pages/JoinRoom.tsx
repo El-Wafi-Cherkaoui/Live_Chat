@@ -30,7 +30,7 @@ export default function JoinRoom() {
   return (
     <div>
         <MiniLayout title='Join Room'>
-            <form onSubmit={join_room} className='flex flex-col gap-2'>
+            <form onSubmit={join_room} className='flex flex-col md:gap-2 gap-5'>
                 <input name="room_id" type="text" placeholder='room id' className={inp_class}/>
                 <button className={btn_class}>Join</button>
             </form>

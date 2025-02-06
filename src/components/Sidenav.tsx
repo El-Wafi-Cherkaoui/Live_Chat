@@ -8,7 +8,7 @@ import { update_rooms } from "../redux/store_&_userSlice"
 import { Rooms_type } from "../../server/app"
 
 
-const navclass = "bg-white w-[30%] py-5 flex flex-col text-center items-center gap-5 shadow-xl shadow-darkblue"
+const navclass = "bg-white md:w-[30%] py-5 flex flex-col text-center items-center gap-5 shadow-xl shadow-darkblue"
 const newroom_link_class = "bg-darkblue text-white px-3 py-2 rounded-2xl hover:bg-white hover:text-darkblue transition font-bold hover:shadow-sm shadow-darkblue"
 const joinroom_link_class = "text-darkblue px-shadow-darkblue px-3 py-2 rounded-2xl transition hover:underline font-bold"
 export default function SideNav() {
@@ -56,7 +56,7 @@ export default function SideNav() {
           no rooms
           </span>
         :<ul className="flex flex-col gap-1">
-          <input type="search" className="my-2 p-1 border rounded-sm border-darkblue" placeholder="search"/>
+          <input type="search" className="my-2 md:p-1 p-4 border rounded-sm border-darkblue" placeholder="search"/>
           {
             rooms.map((room)=>{
               return(

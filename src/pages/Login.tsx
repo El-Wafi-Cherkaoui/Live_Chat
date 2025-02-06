@@ -46,7 +46,7 @@ export default function Login() {
     }
 }
   return (
-    <div className="flex flex-col rounded-2xl [&>*]:p-5 overflow-hidden bg-darkblue">
+    <div className="sm:w-fit w-[95%] flex flex-col rounded-2xl [&>*]:p-5 overflow-hidden bg-darkblue">
         <h1 className="text-white text-center font-bold text-2xl">Login:</h1>
 
         <div className="flex flex-col bg-white gap-2">

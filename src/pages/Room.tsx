@@ -30,10 +30,10 @@ export default function Room(){
     })
     if(!current_room) return
     return(
-        <div className="flex flex-col gap-2 w-full h-full overflow-hidden">
-        <ChatHeader title={current_room.room_name} room_id={current_room.id}/>
-        <ChatBody chat={current_room.messages}/>
-        <ChatFooter current_room = {current_room}/>
+        <div className="flex flex-col gap-2 w-full md:h-full h-[45vh] overflow-hidden">
+            <ChatHeader title={current_room.room_name} room_id={current_room.id}/>
+            <ChatBody chat={current_room.messages}/>
+            <ChatFooter current_room = {current_room}/>
         </div>
     )
 }

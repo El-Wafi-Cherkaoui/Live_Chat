@@ -5,7 +5,7 @@ export const btn_class = "p-1 bg-red-300 rounded-xl px-2 bg-white font-bold hove
 export default function ChatHeader({title, room_id} : {title: string, room_id: string}){
     
     return(
-        <div className="bg-white text-darkblue h-[20%] flex items-center p-5 gap-6 shadow-mid rounded-l-xl">
+        <div className="bg-white text-darkblue md:h-[20%] h-fit flex items-center p-5 gap-6 shadow-mid rounded-l-xl">
             <img src={img} alt="ads" className="w-[50px] h-[50px] rounded-xl p-1" />
             <div className="flex-1 font-bold">
                 <h1>{title}</h1>
