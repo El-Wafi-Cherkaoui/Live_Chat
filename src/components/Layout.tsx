@@ -3,12 +3,13 @@ import SideNav from "./Sidenav";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { SocketType, UserType, useSocket } from "../App";
+import { Rooms_type } from "../../server/app";
 
 
 export type State_type = {
   user : {
     info: UserType | null
-    rooms: string[], 
+    rooms: Rooms_type[], 
     socket : SocketType
   }
 }

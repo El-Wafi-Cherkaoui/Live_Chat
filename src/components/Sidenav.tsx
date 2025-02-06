@@ -1,23 +1,30 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Link } from "react-router-dom"
-import { Room_type } from "../pages/NewRoom"
 import { useSelector } from "react-redux"
 import { State_type } from "./Layout"
 import { useSocket } from "../App"
+import { useDispatch } from "react-redux"
+import { update_rooms } from "../redux/store_&_userSlice"
+import { Rooms_type } from "../../server/app"
 
 
 const navclass = "bg-amber-50 w-[30%] p-5 flex flex-col text-center items-center gap-2"
 const newroom_link_class = "bg-red-800 text-amber-50 px-3 py-2 rounded-2xl hover:bg-amber-50 hover:text-red-800 transition hover:shadow-sm shadow-red-800"
 const joinroom_link_class = "text-red-800 px-shadow-red-800 px-3 py-2 rounded-2xl transition hover:underline"
 export default function SideNav() {
-  const [rooms, setRooms] = useState<Room_type[]>([])
+  const rooms = useSelector((state: State_type)=> state.user.rooms)
+  
   const {socket} = useSocket()
+  const dispatch = useDispatch()
   const user_rooms = useSelector((state: State_type)=> state.user.rooms)
   useEffect(()=>{
     
     if(!socket) return
-    socket.on("room_created", (new_room : Room_type[])=>{
-      setRooms(new_room)
+    socket.on("room_created", (rooms : Rooms_type[])=>{
+      dispatch(update_rooms(rooms))
+    })
+    socket.on("get_rooms", (rooms : Rooms_type[])=>{
+      dispatch(update_rooms(rooms))
     })
 
     return ()=>{
@@ -42,8 +49,8 @@ export default function SideNav() {
         {
           rooms.map((room)=>{
             return(
-              <Link to={""} className="bg-red-300 p-1" key={room.id}>
-                {room.room_name} ({room?.room_members.length})
+              <Link to={"room/"+room.id} className="bg-red-300 p-1" key={room.id}>
+                {room.room_name} ({room.room_members.length})
               </Link>
             )
           })

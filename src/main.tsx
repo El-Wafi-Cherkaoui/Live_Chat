@@ -8,6 +8,7 @@ import Login from './pages/Login.tsx'
 import Layout from './components/Layout.tsx'
 import NewRoom from './pages/NewRoom.tsx'
 import JoinRoom from './pages/JoinRoom.tsx'
+import Room from './pages/Room.tsx'
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
                     {
                         path: "join_room",
                         element: <JoinRoom/>
+                    },
+                    {
+                        path: "room/:id",
+                        element: <Room/>
                     }
                 ]
             }

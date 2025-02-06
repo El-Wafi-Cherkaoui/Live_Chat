@@ -1,22 +1,30 @@
 import { FormEvent, useRef } from "react";
-import { ChatMessage } from "../CreateChatBox";
-import { UserType } from "../../App";
-type ChatFooter_props = {
-    send_message: (new_message : ChatMessage ) => void, 
-    userInfo : UserType
-}
-export default function ChatFooter({send_message, userInfo} : ChatFooter_props){
+import { Rooms_type } from "../../../server/app";
+import { useSelector } from "react-redux";
+import { State_type } from "../Layout";
+import { useSocket } from "../../App";
+
+
+export default function ChatFooter({current_room} : { current_room : Rooms_type}){
+    const userInfo = useSelector((state : State_type) => state.user.info)
     const msg_inp = useRef<HTMLInputElement | null>(null)
 
+    const {socket} = useSocket()
+    
     function handle_msg(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
         if(msg_inp.current){
-            send_message({
-                sender: userInfo.username,
+            const new_msg = {
+                sender: userInfo?.username,
                 text: msg_inp.current.value,
                 date: new Date().toISOString(),
-                roomID: ""
-            })
+            }
+
+            try {
+                socket?.emit("send_msg", {content : new_msg, target_room: current_room.id})
+            } catch (error) {
+                
+            }
         }
     }
     return(

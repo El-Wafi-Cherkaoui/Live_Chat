@@ -1,21 +1,21 @@
-import { UserType } from "../../App"
-import { ChatMessage } from "../CreateChatBox"
+import { ChatMessage } from "../../pages/Room"
+import { State_type } from "../Layout"
+import { useSelector } from "react-redux"
 
 type ChatBody_props = {
     chat: ChatMessage[]
-    userInfo : UserType
 }
-export default function ChatBody({chat, userInfo}: ChatBody_props){
-    
-    
+export default function ChatBody({chat}: ChatBody_props){
+    const userInfo = useSelector((state: State_type)=> state.user.info)
+
     return(
         <div className="bg2 flex-1 p-4 overflow-scroll flex flex-col gap-1 items-start">
             {
                 chat.map((msg, key)=>{
-                    if(msg.sender == userInfo.username){
+                    if(msg.sender == userInfo?.username){
                         return(
-                            <div>
-                                <p className="bg-white p-2 rounded-xl" key={key}>
+                            <div key={key}>
+                                <p className="bg-white p-2 rounded-xl">
                                     {msg.text}
                                 </p>
                             </div>
@@ -23,7 +23,7 @@ export default function ChatBody({chat, userInfo}: ChatBody_props){
                     }
                     else{
                         return(
-                            <div className="ml-auto flex flex-col">
+                            <div className="ml-auto flex flex-col" key={key}>
                                 <span className="text-amber-50 font-bold">
                                     {msg.sender}
                                 </span>

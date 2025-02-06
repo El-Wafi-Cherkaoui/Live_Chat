@@ -6,6 +6,7 @@ import cors from 'cors'
 import path from "path"
 import { fileURLToPath } from "url";
 import { createServer } from "http"
+import { ChatMessage } from "../src/pages/Room"
 
 dotenv.config()
 
@@ -53,11 +54,12 @@ const io = new Server(http_server, {
 //     date: string
 //     roomID: string
 // }
-type Rooms_type = {
+export type Rooms_type = {
     id: string,
     room_name: string,
     room_admin: string, 
-    room_members: string[]
+    room_members: string[],
+    messages: ChatMessage[]
 }
 type Join_req_type = {
     room_id: string,
@@ -69,12 +71,21 @@ const rooms : Rooms_type[] = [
 
 io.on("connection", (cnn)=>{
     console.log("someone connected to server")
+    
+
+    
+    
     cnn.on("disconnect", () => {
         console.log("user disconnected", cnn.id);
     });
+    
+    cnn.on("user_info", (username)=>{
+        const my_rooms = rooms.filter((room)=>room.room_members.some(member=>member == username))
+        console.log("user connected: ", username);
 
-    cnn.on("user_info", (user_info)=>{
-        console.log("user connected: ", user_info);
+        my_rooms.map((room)=>cnn.join(room.id))
+        io.to(cnn.id).emit("get_rooms", my_rooms)        
+
         // cnn.join(user_info.roomID)
     })
 
@@ -113,23 +124,18 @@ io.on("connection", (cnn)=>{
         }
 
     })
-    // cnn.on("send_msg", (msg : Message_Type)=>{
-    //     const room = rooms.find((room)=>room.id == msg.roomID)
-    //     if(room){
-    //         room.messages.push(msg)
-    //         io.to(msg.roomID).emit("send_data", room.messages)
-    //     } else{
-    //         const new_room = {
-    //             roomID : msg.roomID,
-    //             messages : [
-    //                 msg
-    //             ]
-    //         }
-    //         rooms.push(new_room)            
-    //         io.to(msg.roomID).emit("send_data", new_room.messages)
-
-    //     }        
-    // })
+    cnn.on("send_msg", (msg)=>{
+        console.log(msg);
+        
+        const room = rooms.find((room)=>room.id == msg.target_room)
+        if(room){
+            room.messages.push(msg.content)
+            io.to(msg.target_room).emit("new_message", room)
+        } else{
+            throw new Error("this room doesnt exist");
+            
+        }        
+    })
 
 
 })
