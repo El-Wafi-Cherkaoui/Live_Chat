@@ -6,7 +6,7 @@
     align-items: center;
 }
 body{
-    background-color: #52345eee;
+    background-color: #94ADD7 ;
 }
 .bg1 {
     background-color: #441752;
@@ -18,5 +18,10 @@ body{
 @theme {
     --color-primary: #441752;
     --color-secondary: #A888B5;
+
+    --color-white: #E8FFCE;
+    --color-darkblue: #7C73C0;
+    --color-midblue: #94ADD7;
+    --color-lightblue: #ACFADF;
 }
 @import "tailwindcss"

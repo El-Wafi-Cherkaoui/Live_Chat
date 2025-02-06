@@ -3,9 +3,8 @@ import MiniLayout from '../components/MiniLayout'
 import { useSelector } from 'react-redux'
 import { State_type } from '../components/Layout'
 import { useSocket } from '../App'
+import { btn_class, inp_class } from './NewRoom'
 
-const inp_class = "p-2 border border-red-800 rounded-sm"
-const btn_class = "ml-auto bg-red-800 w-fit  px-5 py-2 rounded-2xl text-amber-50 hover:bg-amber-50 hover:text-red-800 transition cursor-pointer"
 
 export default function JoinRoom() {
     const {socket} = useSocket()

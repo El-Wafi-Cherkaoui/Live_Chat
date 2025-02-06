@@ -28,9 +28,9 @@ export default function ChatFooter({current_room} : { current_room : Rooms_type}
         }
     }
     return(
-        <div className="py-2 px-4 flex gap-5 items-center">
+        <div className="py-2 px-2 flex gap-5 items-center">
             <form onSubmit={handle_msg} className="w-full flex">
-                <input className="flex-1 bg-white py-1 px-2 rounded-xl" type="text" placeholder="write message" ref={msg_inp}/>
+                <input className="flex-1 focus:outline-none bg-white py-4 px-2 rounded-md" type="text" placeholder="write message" ref={msg_inp}/>
             </form>
         </div>
     )

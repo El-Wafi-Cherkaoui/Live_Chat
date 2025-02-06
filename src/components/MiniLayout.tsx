@@ -6,11 +6,11 @@ type MiniLayout_type = {
 }
 export default function MiniLayout({title, children}: MiniLayout_type) {
   return (
-    <div className='bg-amber-50 rounded overflow-hidden'>
-        <div className='p-5 bg-red-800'>
-            <h1 className='text-amber-50 text-center font-bold text-2xl'>{title}</h1>
+    <div className='bg-white rounded overflow-hidden shadow-2xl'>
+        <div className='p-2 bg-white border-darkblue'>
+            <h1 className='text-darkblue text-center font-bold text-2xl'>{title}</h1>
         </div>
-        <div className='flex flex-col p-5 gap-5 items-center'>
+        <div className='flex flex-col p-4 gap-5 items-center'>
             {children}
         </div>
     </div>

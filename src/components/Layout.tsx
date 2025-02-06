@@ -47,7 +47,7 @@ export default function Layout() {
     
   }, [user, socket])
   return (
-    <div className="flex w-[90vw] gap-5 h-[90vh] bg-red-400 rounded-xl overflow-hidden">
+    <div className="flex w-[98vw] gap-5 h-[95vh] bg-darkblue rounded-xl overflow-hidden">
         <SideNav/>
         <div className="w-full h-full justify-center items-center flex ">
           <Outlet/>

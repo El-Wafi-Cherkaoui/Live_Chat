@@ -6,8 +6,8 @@ import { useSocket } from '../App'
 import { Rooms_type } from '../../server/app'
 
 
-const inp_class = "p-2 border border-red-800 rounded-sm"
-const btn_class = "ml-auto bg-red-800 w-fit  px-5 py-2 rounded-2xl text-amber-50 hover:bg-amber-50 hover:text-red-800 transition cursor-pointer"
+export const inp_class = "p-2 border border-darkblue rounded-sm"
+export const btn_class = "ml-auto bg-darkblue w-full px-5 py-2 rounded-2xl text-white hover:bg-white hover:text-darkblue transition cursor-pointer font-bold hover:shadow-sm shadow-darkblue"
 export default function NewRoom() {
     const {socket} = useSocket()
     const user_info = useSelector((state: State_type)=>state.user.info)

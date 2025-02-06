@@ -9,7 +9,7 @@ export default function ChatBody({chat}: ChatBody_props){
     const userInfo = useSelector((state: State_type)=> state.user.info)
 
     return(
-        <div className="bg2 flex-1 p-4 overflow-scroll flex flex-col gap-1 items-start">
+        <div className="flex-1 p-4 overflow-scroll flex flex-col gap-1 items-start">
             {
                 chat.map((msg, key)=>{
                     if(msg.sender == userInfo?.username){
