@@ -6,7 +6,8 @@ import cors from 'cors'
 import path from "path"
 import { fileURLToPath } from "url";
 import { createServer } from "http"
-import { ChatMessage } from "../src/pages/Room"
+import { Join_req_type, Rooms_type } from "./Types"
+import { online_users, set_offline, set_online } from "./functions"
 
 dotenv.config()
 
@@ -48,45 +49,28 @@ const io = new Server(http_server, {
     pingInterval: 60000, 
     pingTimeout: 50000, 
 });
-// type Message_Type = {
-//     sender: string
-//     text: string
-//     date: string
-//     roomID: string
-// }
-export type Rooms_type = {
-    id: string,
-    room_name: string,
-    room_admin: string, 
-    room_members: string[],
-    messages: ChatMessage[]
-}
-type Join_req_type = {
-    room_id: string,
-    username: string,
-}
-const rooms : Rooms_type[] = [
-    
-]
+
+const rooms : Rooms_type[] = []
 
 io.on("connection", (cnn)=>{
     console.log("someone connected to server")
-    
-
-    
-    
     cnn.on("disconnect", () => {
-        console.log("user disconnected", cnn.id);
+        set_offline(cnn.id)
+        io.emit("online_users", online_users)
+        console.log("online user from logout was emitted");
+
     });
     
-    cnn.on("user_info", (username)=>{
+    cnn.on("request_rooms", (username)=>{
         const my_rooms = rooms.filter((room)=>room.room_members.some(member=>member == username))
         console.log("user connected: ", username);
-
         my_rooms.map((room)=>cnn.join(room.id))
-        io.to(cnn.id).emit("get_rooms", my_rooms)        
-
-        // cnn.join(user_info.roomID)
+        io.to(cnn.id).emit("get_rooms", my_rooms)    
+        
+        set_online(username, cnn.id)
+        io.emit("online_users", online_users)
+        console.log("online user from login was emitted");
+            
     })
 
     cnn.on("create_room", (new_room)=>{
@@ -139,12 +123,6 @@ io.on("connection", (cnn)=>{
 
 
 })
-setInterval(() => {
-    console.log("===========");
-    console.log(rooms);
-    console.log("===========");
-    
-}, 20500);
 app.get('*', (_req, res) => { 
     res.sendFile(path.join(__dirname, '../dist', 'index.html'))
 });

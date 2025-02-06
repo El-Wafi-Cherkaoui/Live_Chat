@@ -1,19 +1,14 @@
 import ChatBody from "../components/subcomponents/ChatBody.tsx";
 import ChatFooter from "../components/subcomponents/ChatFooter.tsx";
 import ChatHeader from "../components/subcomponents/ChatHeader.tsx";
-import {SocketType, UserType, useSocket} from "../App.tsx"
+import { useSocket} from "../App.tsx"
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { State_type } from "../components/Layout.tsx";
-import { Rooms_type } from "../../server/app.ts";
 import { useDispatch } from "react-redux";
 import { update_room } from "../redux/store_&_userSlice.ts";
+import { Rooms_type, SocketType, State_type, UserType } from "../../server/Types.ts";
 
-export type ChatMessage = {
-    sender : string
-    text : string
-    date : string
-}
+
 export type ChatBox_props = {
     socket : SocketType| null
     userInfo : UserType

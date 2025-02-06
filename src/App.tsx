@@ -1,17 +1,11 @@
-import io from "socket.io-client"
 import './styles/App.css';
 import { createContext, useContext, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import { Socket_context_type, SocketType } from "../server/Types";
 
 
-export type SocketType = ReturnType<typeof io>;
-export type UserType = {
-  username : string
-}
-type Socket_context_type = {
-  socket : SocketType | null
-  set_socket : React.Dispatch<React.SetStateAction<SocketType | null>>
-}
+
+
 export const Socket_context = createContext <Socket_context_type | null> (null)
 function App() {
   const [socket, set_socket] = useState<SocketType | null>(null)

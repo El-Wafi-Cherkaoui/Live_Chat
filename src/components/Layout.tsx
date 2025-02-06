@@ -2,17 +2,11 @@ import { Outlet, useNavigate } from "react-router-dom";
 import SideNav from "./Sidenav";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { SocketType, UserType, useSocket } from "../App";
-import { Rooms_type } from "../../server/app";
+import { useSocket } from "../App";
+import { State_type } from "../../server/Types";
 
 
-export type State_type = {
-  user : {
-    info: UserType | null
-    rooms: Rooms_type[], 
-    socket : SocketType
-  }
-}
+
 export default function Layout() {
   const navigate = useNavigate()
   const user = useSelector((state: State_type)=>state.user)

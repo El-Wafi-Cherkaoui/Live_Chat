@@ -1,7 +1,7 @@
 import React from 'react'
 import MiniLayout from '../components/MiniLayout'
 import { useSelector } from 'react-redux'
-import { State_type } from '../components/Layout'
+import { State_type } from '../../server/Types'
 import { useSocket } from '../App'
 import { btn_class, inp_class } from './NewRoom'
 

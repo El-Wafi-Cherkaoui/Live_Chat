@@ -30,14 +30,13 @@ export default function Login() {
   function create_socket(username: string) {
     try {
         const socket_inst = io(import.meta.env.VITE_BACKEND_SERVER, {
-
             transports: ["websocket"],
         });
         console.log("socket_inst:", socket_inst);
 
         socket_inst.on("connect", () => {
             console.log('connected to websocket');
-            socket_inst.emit("user_info", username)
+            socket_inst.emit("request_rooms", username)
         })
         return socket_inst
     } catch (error) {

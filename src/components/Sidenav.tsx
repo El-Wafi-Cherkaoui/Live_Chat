@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { State_type } from "./Layout"
 import { useSocket } from "../App"
 import { useDispatch } from "react-redux"
 import { update_rooms } from "../redux/store_&_userSlice"
-import { Rooms_type } from "../../server/app"
 import Rooms_list from "./subcomponents/Rooms_list"
-import Friends_list from "./subcomponents/Friends_list"
+import Users_list from "./subcomponents/Users_list"
+import { Rooms_type, State_type, User_online_type } from "../../server/Types"
 
 
 const navclass = "bg-white md:w-[30%] py-5 flex flex-col text-center items-center gap-5 shadow-xl shadow-darkblue"
@@ -24,6 +23,8 @@ export default function SideNav() {
   const user_rooms = useSelector((state: State_type) => state.user.rooms)
 
   const [current_comp, set_current_comp] = useState("rooms")
+  const [users, setUsers] = useState<User_online_type[]>([])
+
 
   useEffect(() => {
 
@@ -39,7 +40,17 @@ export default function SideNav() {
       socket.off("room_created")
     }
   }, [user_rooms])
+  useEffect(()=>{
+      console.log("S", socket);
+      
+      if(!socket) return
+      socket.on("online_users", (online_users : any)=>{
+          console.log("Trigger : online user");
 
+          console.log("online users : ", online_users);    
+          setUsers([...online_users.filter((user:User_online_type)=>user.socket_id != socket.id)])        
+      })
+  }, [socket])
   return (
     <nav className={navclass}>
       <div className="flex w-full justify-between items-center px-5">
@@ -59,7 +70,7 @@ export default function SideNav() {
           {
             current_comp == "rooms"
               ? <Rooms_list rooms={rooms}/>
-              : <Friends_list/>
+              : <Users_list users={users}/>
           }
         </div>
       </div>

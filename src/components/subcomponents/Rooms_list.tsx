@@ -1,10 +1,10 @@
-import { Rooms_type } from '../../../server/app'
 import { Link } from 'react-router-dom'
+import { Rooms_type } from '../../../server/Types'
 
 
 const span_class = "block p-1 w-full gap-2 rounded text-center text-darkblue font-semibold"
-const search_inp_class = "my-2 md:p-1 p-4 border rounded-sm border-darkblue"
-const list_element_class = "group bg-darkblue text-white flex gap-2 rounded-md hover:rounded-2xl transition duration-300 ease-in-out hover:bg-white hover:text-darkblue border-1 hover:shadow-md shadow-darkblue hover:border-darkblue overflow-hidden"
+export const search_inp_class = "my-2 md:p-1 p-4 border rounded-sm border-darkblue"
+export const list_element_class = "group bg-darkblue text-white flex gap-2 rounded-md hover:rounded-2xl transition duration-300 ease-in-out hover:bg-white hover:text-darkblue border-1 hover:shadow-md shadow-darkblue hover:border-darkblue overflow-hidden"
 const user_counter_class = "group-hover:border-transparent ml-auto bg-white text-darkblue p-1 font-bold border-2 rounded-l-sm transition"
 
 export default function Rooms_list({rooms} : {rooms: Rooms_type[]}) {

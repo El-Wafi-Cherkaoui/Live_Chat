@@ -1,6 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-import {UserType} from "../App"
-import { Rooms_type } from "../../server/app";
+import { Rooms_type, UserType } from "../../server/Types";
 
 
 interface InitialState {

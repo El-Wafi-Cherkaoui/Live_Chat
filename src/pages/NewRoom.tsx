@@ -1,9 +1,8 @@
 import React from 'react'
 import MiniLayout from '../components/MiniLayout'
 import { useSelector } from 'react-redux'
-import { State_type } from '../components/Layout'
 import { useSocket } from '../App'
-import { Rooms_type } from '../../server/app'
+import { Rooms_type , State_type} from '../../server/Types'
 
 
 export const inp_class = "p-2 border border-darkblue rounded-sm"

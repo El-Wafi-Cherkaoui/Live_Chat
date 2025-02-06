@@ -1,8 +1,7 @@
 import { FormEvent, useRef } from "react";
-import { Rooms_type } from "../../../server/app";
 import { useSelector } from "react-redux";
-import { State_type } from "../Layout";
 import { useSocket } from "../../App";
+import { Rooms_type , State_type} from "../../../server/Types";
 
 
 export default function ChatFooter({current_room} : { current_room : Rooms_type}){

@@ -1,5 +1,4 @@
-import { ChatMessage } from "../../pages/Room"
-import { State_type } from "../Layout"
+import { ChatMessage, State_type } from "../../../server/Types"
 import { useSelector } from "react-redux"
 
 type ChatBody_props = {
