@@ -4,12 +4,18 @@ import { Rooms_type, UserType } from "../../server/Types";
 
 interface InitialState {
     info : UserType | null,
-    rooms : Rooms_type[]
+    rooms : Rooms_type[],
+    ui : {
+        shared_space : boolean
+    }
 }
 
 const initialState : InitialState = {
     info : null,
-    rooms : []
+    rooms : [],
+    ui : {
+        shared_space : false
+    }
 }
 const userSlice = createSlice({
     name : "userSlice",
@@ -27,13 +33,14 @@ const userSlice = createSlice({
                     else return action.payload
                 }
             )
-            
-
         },
+        toggle_shared_space : (state) => {
+            state.ui.shared_space = !state.ui.shared_space
+        }
     }
 })
 
-export const {login, logout, update_rooms, update_room} = userSlice.actions
+export const {login, logout, update_rooms, update_room, toggle_shared_space} = userSlice.actions
 
 export const store = configureStore({
     reducer : {

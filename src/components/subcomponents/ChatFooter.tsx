@@ -21,6 +21,7 @@ export default function ChatFooter({current_room} : { current_room : Rooms_type}
 
             try {
                 socket?.emit("send_msg", {content : new_msg, target_room: current_room.id})
+                msg_inp.current.value = ""
             } catch (error) {
                 
             }

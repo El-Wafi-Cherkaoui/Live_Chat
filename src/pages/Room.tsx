@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { update_room } from "../redux/store_&_userSlice.ts";
 import { Rooms_type, SocketType, State_type, UserType } from "../../server/Types.ts";
+import Shared_space from "../components/Shared_space.tsx";
 
 
 export type ChatBox_props = {
@@ -24,11 +25,14 @@ export default function Room(){
         dispatch(update_room(updated_room))
     })
     if(!current_room) return
+
+    const show_shared_space = useSelector((state: State_type)=> state.user.ui.shared_space)
     return(
         <div className="flex flex-col gap-2 w-full md:h-full h-[45vh] overflow-hidden">
             <ChatHeader title={current_room.room_name} room_id={current_room.id}/>
             <ChatBody chat={current_room.messages}/>
             <ChatFooter current_room = {current_room}/>
+            {show_shared_space ? <Shared_space current_room = {current_room}/> : ""}
         </div>
     )
 }

@@ -8,7 +8,8 @@ export type Rooms_type = {
     room_name: string,
     room_admin: string, 
     room_members: string[],
-    messages: ChatMessage[]
+    messages: ChatMessage[],
+    shared_text: string
 }
 export type Join_req_type = {
     room_id: string,
@@ -37,6 +38,13 @@ export type State_type = {
     user : {
       info: UserType | null
       rooms: Rooms_type[], 
-      socket : SocketType
+      socket : SocketType,
+      ui : {
+        shared_space : boolean
+      }
     }
-  }
+}
+export type Edited_data = {
+  id : string
+  edited_text : string
+}

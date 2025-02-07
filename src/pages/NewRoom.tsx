@@ -23,7 +23,8 @@ export default function NewRoom() {
             room_name: room_name.value,
             room_admin: user_info.username,
             room_members: [user_info.username],
-            messages: []
+            messages: [],
+            shared_text : ""
         }
         console.log(user_info);
         

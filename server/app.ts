@@ -6,7 +6,7 @@ import cors from 'cors'
 import path from "path"
 import { fileURLToPath } from "url";
 import { createServer } from "http"
-import { Join_req_type, Rooms_type } from "./Types"
+import { Edited_data, Join_req_type, Rooms_type } from "./Types"
 import { online_users, set_offline, set_online } from "./functions"
 
 dotenv.config()
@@ -81,14 +81,8 @@ io.on("connection", (cnn)=>{
         rooms.push(new_room)
         const room_id = new_room.id
         cnn.join(room_id)
-        console.log("====================");
-        console.log(cnn.id, 'room created', room_id);
-        console.log(cnn.id , 'joined to ', cnn.rooms);
-        console.log("====================");
         
         const my_rooms = rooms.filter((room)=>room.room_members.some(member=>member == current_user))
-        console.log(new_room);
-        console.log(my_rooms);
         
         io.to(room_id).emit("room_created", my_rooms)        
     })
@@ -119,6 +113,15 @@ io.on("connection", (cnn)=>{
             throw new Error("this room doesnt exist");
             
         }        
+    })
+    cnn.on("save_shared_text", (edited_data : Edited_data)=>{
+        const {id, edited_text} = edited_data
+        let target_room = rooms.find((room)=>room.id == id)
+        if(!target_room) throw new Error("room not found")
+        target_room.shared_text = edited_text
+
+        io.to(id).emit("shared_text_changed",target_room)
+        
     })
 
 
