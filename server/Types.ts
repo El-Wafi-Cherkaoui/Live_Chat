@@ -38,9 +38,9 @@ export type State_type = {
     user : {
       info: UserType | null
       rooms: Rooms_type[], 
-      socket : SocketType,
       ui : {
-        shared_space : boolean
+        shared_space : boolean,
+        show_info : boolean
       }
     }
 }

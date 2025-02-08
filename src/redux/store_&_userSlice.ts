@@ -6,7 +6,8 @@ interface InitialState {
     info : UserType | null,
     rooms : Rooms_type[],
     ui : {
-        shared_space : boolean
+        shared_space : boolean,
+        show_info : boolean
     }
 }
 
@@ -14,7 +15,8 @@ const initialState : InitialState = {
     info : null,
     rooms : [],
     ui : {
-        shared_space : false
+        shared_space : false,
+        show_info : false
     }
 }
 const userSlice = createSlice({
@@ -36,11 +38,15 @@ const userSlice = createSlice({
         },
         toggle_shared_space : (state) => {
             state.ui.shared_space = !state.ui.shared_space
-        }
+        },
+        toggle_show_info : (state) => {
+            state.ui.show_info = !state.ui.show_info
+        },
+        
     }
 })
 
-export const {login, logout, update_rooms, update_room, toggle_shared_space} = userSlice.actions
+export const {login, logout, update_rooms, update_room, toggle_shared_space, toggle_show_info} = userSlice.actions
 
 export const store = configureStore({
     reducer : {
