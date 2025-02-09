@@ -8,8 +8,6 @@ import { useDispatch } from "react-redux";
 export default function User({user} : {user: User_online_type}) {
     const dispatch  = useDispatch()
     const show_info = useSelector((state : State_type)=> state.user.ui.show_info)
-    function display_info() {
-    }
     return (
         <div className={list_element_class}>
             <div className="relative">

@@ -24,6 +24,9 @@ export default function Room(){
     socket?.on("new_message", (updated_room : Rooms_type)=>{
         dispatch(update_room(updated_room))
     })
+    socket?.on("shared_text_changed", (updated_room : Rooms_type)=>{
+        dispatch(update_room(updated_room))
+    })
     if(!current_room) return
 
     const show_shared_space = useSelector((state: State_type)=> state.user.ui.shared_space)

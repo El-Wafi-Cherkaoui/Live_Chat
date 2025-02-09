@@ -1,6 +1,5 @@
 import { User_online_type } from "../../../server/Types";
 import { search_inp_class } from "./Rooms_list";
-import { Link } from "react-router-dom";
 import User from "./User";
 
 const friends_list_class  = "block p-1 w-full gap-2 rounded text-center text-darkblue font-semibold"
