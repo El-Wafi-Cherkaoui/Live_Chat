@@ -5,7 +5,7 @@ import { login } from "../redux/store_&_userSlice"
 import { useNavigate } from "react-router-dom"
 import io from "socket.io-client"
 
-const style_class = "bg-darkblue text-white p-1 rounded-l cursor-pointer hover:bg-white hover:text-darkblue transition duration-75 border-2 border-darkblue font-bold"
+const style_class = "bg-darkgrey text-white p-1 rounded-l cursor-pointer hover:bg-white hover:text-darkgrey transition duration-75 border-2 border-darkgrey font-bold"
 
 
 export default function Login() {
@@ -45,11 +45,11 @@ export default function Login() {
     }
 }
   return (
-    <div className="sm:w-fit w-[95%] flex flex-col rounded-2xl [&>*]:p-5 overflow-hidden bg-darkblue">
+    <div className="sm:w-fit w-[95%] flex flex-col rounded-2xl [&>*]:p-5 overflow-hidden bg-darkgrey">
         <h1 className="text-white text-center font-bold text-2xl">Login:</h1>
 
         <div className="flex flex-col bg-white gap-2">
-            <input type="text" placeholder="Nick name" className="border-2 p-1 rounded border-darkblue" ref={usernameRef}/>
+            <input type="text" placeholder="Nick name" className="border-2 p-1 rounded border-darkgrey" ref={usernameRef}/>
             {/* <input type="text" className="border-2 p-1 rounded border-primary" defaultValue={generate_id()} ref={roomIDRef}/> */}
             <button onClick={connect} className={style_class}>Login</button>
         </div>

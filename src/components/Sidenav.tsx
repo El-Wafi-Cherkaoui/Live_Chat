@@ -9,11 +9,11 @@ import Users_list from "./subcomponents/Users_list"
 import { Rooms_type, State_type, User_online_type } from "../../server/Types"
 
 
-const navclass = "bg-white md:w-[30%] py-5 flex flex-col text-center items-center gap-5 shadow-xl shadow-darkblue"
-const newroom_link_class = "bg-darkblue text-white px-3 py-2 rounded-2xl hover:bg-white hover:text-darkblue transition font-bold hover:shadow-sm shadow-darkblue"
-const joinroom_link_class = "text-darkblue px-shadow-darkblue px-3 py-2 rounded-2xl transition hover:underline font-bold"
-const active_btn_class = "bg-white text-darkblue px-2 py-1 rounded-t-lg cursor-pointer"
-const btn_class = "px-2 py-1 rounded-t-lg cursor-pointer hover:bg-white hover:text-darkblue"
+const navclass = "bg-white md:w-[30%] py-5 flex flex-col text-center items-center gap-5 shadow-xl shadow-darkgrey"
+const newroom_link_class = "bg-darkgrey text-white px-3 py-2 rounded-2xl hover:bg-white hover:text-darkgrey transition font-bold hover:shadow-sm shadow-darkgrey"
+const joinroom_link_class = "text-darkgrey px-shadow-darkgrey px-3 py-2 rounded-2xl transition hover:underline font-bold"
+const active_btn_class = "bg-white text-darkgrey px-2 py-1 rounded-t-lg cursor-pointer"
+const btn_class = "px-2 py-1 rounded-t-lg cursor-pointer hover:bg-white hover:text-darkgrey"
 
 export default function SideNav() {
   const rooms = useSelector((state: State_type) => state.user.rooms)
@@ -57,7 +57,7 @@ export default function SideNav() {
         <Link to={"new_room"} className={newroom_link_class}>Create Room</Link>
         <Link to={"join_room"} className={joinroom_link_class}>Join Room</Link>
       </div>
-      <ul className="flex gap-5 bg-darkblue w-full text-amber-50 px-4 pt-2 font-bold text-left">
+      <ul className="flex gap-5 bg-darkgrey w-full text-amber-50 px-4 pt-2 font-bold text-left">
         <button onClick={()=>set_current_comp("rooms")} className={current_comp == "rooms" ? active_btn_class : btn_class}>
           Rooms
         </button>
