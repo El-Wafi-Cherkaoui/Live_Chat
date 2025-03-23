@@ -15,7 +15,7 @@ const PORT = process.env.BACKEND_PORT
 const app = express()
 app.use(
     cors({
-        origin: process.env.FRONTEND_SERVER || "http://localhost:4173",
+        origin: process.env.FRONTEND_SERVER || "http://localhost:5173",
         methods: ["GET", "POST"],
         allowedHeaders: ["Content-Type"],
     })
