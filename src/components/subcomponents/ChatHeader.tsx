@@ -13,7 +13,7 @@ export default function ChatHeader({title, room_id} : {title: string, room_id: s
         <div className="bg-white text-darkgrey md:h-[20%] h-fit flex items-center p-5 gap-6 shadow-mid rounded-l-xl">
             <Chat_svg/>
             <div className="flex-1 font-bold">
-                <h1 className="text-3xl text-primary">{title}</h1>
+                <h1 className="text-3xl text-darkgrey">{title}</h1>
             </div>
             <div>
                 <button onClick={show_shared_space} className="bg-darkgrey text-white px-4 py-2 rounded-2xl cursor-pointer hover:bg-white hover:text-darkgrey border-1">

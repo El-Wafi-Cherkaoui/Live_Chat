@@ -4,7 +4,7 @@ type Chat_svg_props = {
     height?: string;
 }
 
-export default function Chat_svg({color = "#441752", width = "5vw", height = "auto"}: Chat_svg_props) {
+export default function Chat_svg({color = "#373A40", width = "5vw", height = "auto"}: Chat_svg_props) {
   return (
     <svg
       width={width}
