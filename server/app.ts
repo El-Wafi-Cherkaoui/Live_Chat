@@ -8,18 +8,26 @@ import { fileURLToPath } from "url";
 import { createServer } from "http"
 import { Edited_data, Join_req_type, Rooms_type } from "./Types"
 import { online_users, set_offline, set_online } from "./functions"
+import rateLimit from "express-rate-limit";
 
 dotenv.config()
 
-const PORT = process.env.BACKEND_PORT
+const PORT = process.env.BACKEND_PORT || "5173"
 const app = express()
 app.use(
     cors({
-        origin: process.env.FRONTEND_SERVER || "http://localhost:5173",
+        origin: process.env.FRONTEND_SERVER || "http://localhost:5174",
         methods: ["GET", "POST"],
         allowedHeaders: ["Content-Type"],
     })
 );
+
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 20,
+});
+
+app.use(limiter);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, '../dist')));
@@ -51,7 +59,7 @@ const io = new Server(http_server, {
 });
 
 const rooms : Rooms_type[] = []
-
+const messageLimitMap = new Map<string, { count: number; timer: NodeJS.Timeout }>();
 io.on("connection", (cnn)=>{
     console.log("someone connected to server")
     cnn.on("disconnect", () => {
@@ -103,8 +111,21 @@ io.on("connection", (cnn)=>{
 
     })
     cnn.on("send_msg", (msg)=>{
+        const key = cnn.id;
+        if (!messageLimitMap.has(key)) {
+        messageLimitMap.set(key, { count: 1, timer: setTimeout(() => {
+            messageLimitMap.delete(key);
+        }, 60 * 1000) });
+        } else {
+        const entry = messageLimitMap.get(key)!;
+        entry.count++;
+        if (entry.count > 10) {
+            cnn.emit("rate_limit", { message: "Too many messages, wait a bit." });
+            console.log("too many messages, sending was blocked");
+            return;
+        }
         console.log(msg);
-        
+        }
         const room = rooms.find((room)=>room.id == msg.target_room)
         if(room){
             room.messages.push(msg.content)
