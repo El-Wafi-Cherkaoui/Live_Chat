@@ -10,7 +10,7 @@ export default function ChatHeader({title, room_id} : {title: string, room_id: s
         dispatch(toggle_shared_space())
     }
     return(
-        <div className="bg-white text-darkgrey md:h-[20%] h-fit flex items-center p-5 gap-6 shadow-mid rounded-l-xl">
+        <div className="bg-white text-darkgrey md:h-[20%] h-fit flex items-center md:p-5 py-2 px-2  gap-6 shadow-mid md:rounded-l-xl">
             <Chat_svg/>
             <div className="flex-1 font-bold">
                 <h1 className="text-3xl text-darkgrey">{title}</h1>

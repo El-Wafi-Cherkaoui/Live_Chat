@@ -7,6 +7,7 @@ type Chat_svg_props = {
 export default function Chat_svg({color = "#373A40", width = "5vw", height = "auto"}: Chat_svg_props) {
   return (
     <svg
+    className="hidden md:block"
       width={width}
       height={height}
       viewBox="0 0 24 24"

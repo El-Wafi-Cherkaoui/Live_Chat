@@ -31,7 +31,7 @@ export default function Room(){
 
     const show_shared_space = useSelector((state: State_type)=> state.user.ui.shared_space)
     return(
-        <div className="flex flex-col gap-2 w-full md:h-full h-[45vh] overflow-hidden">
+        <div className="flex flex-col md:gap-2 w-full md:h-full h-[45vh] overflow-hidden">
             <ChatHeader title={current_room.room_name} room_id={current_room.id}/>
             <ChatBody chat={current_room.messages}/>
             <ChatFooter current_room = {current_room}/>
