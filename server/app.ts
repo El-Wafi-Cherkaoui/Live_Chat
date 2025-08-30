@@ -12,7 +12,7 @@ import rateLimit from "express-rate-limit";
 
 dotenv.config()
 
-const PORT = process.env.BACKEND_PORT || "5173"
+const PORT = process.env.BACKEND_PORT || "4001"
 const app = express()
 app.use(
     cors({
@@ -42,7 +42,7 @@ app.get("/", (_req, res) => {
     res.send("websocket server is on");
 });
 const http_server = createServer(app)
-http_server.listen(PORT, ()=>{
+http_server.listen(Number(PORT), "0.0.0.0",()=>{
     console.log("server is running on: ", PORT)
 })
 const io = new Server(http_server, {
